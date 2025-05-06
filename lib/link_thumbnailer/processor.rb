@@ -3,6 +3,7 @@
 require 'delegate'
 require 'uri'
 require 'net/http/persistent'
+require 'link_thumbnailer/models/response'
 
 module LinkThumbnailer
   class Processor < ::SimpleDelegator
@@ -71,7 +72,8 @@ module LinkThumbnailer
 
       case response
       when ::Net::HTTPSuccess
-        Response.new(response).body
+        http_response = Response.new(response)
+        ::LinkThumbnailer::Models::Response.new(http_response)
       when ::Net::HTTPRedirection
         call(
           resolve_relative_url(response['location'].to_s),

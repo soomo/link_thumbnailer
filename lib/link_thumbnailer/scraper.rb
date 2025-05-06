@@ -28,14 +28,19 @@ module LinkThumbnailer
       @source       = source
       @url          = url
       @config       = ::LinkThumbnailer.page.config
-      @document     = parser.call(source)
       @website      = ::LinkThumbnailer::Models::Website.new
       @website.url  = url
 
       super(config)
     end
 
-    def call
+    def call response
+      if response.type == ::LinkThumbnailer::Models::Response::Types::WEBPAGE
+        @document = parser.call(source)
+      else
+        @document = nil
+      end
+      website.response = response
       config.attributes.each do |name|
         config.scrapers.each do |scraper_prefix|
           scraper_class(scraper_prefix, name).new(document, website).call(name.to_s)

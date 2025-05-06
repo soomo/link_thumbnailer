@@ -17,8 +17,9 @@ module LinkThumbnailer
     end
 
     def generate
-      @source = processor.start(url)
-      scraper.call
+      response = processor.start(url)
+      @source = response.body
+      scraper.call response
     end
 
     def config
