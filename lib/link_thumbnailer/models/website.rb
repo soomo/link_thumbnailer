@@ -46,7 +46,7 @@ module LinkThumbnailer
           description:  description,
           images:       images.map(&:as_json),
           videos:       videos.map(&:as_json),
-          response:     response.as_json,
+          response:     {code: response.code, headers: response.headers}
         }
       end
 
