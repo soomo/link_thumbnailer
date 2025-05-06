@@ -5,8 +5,13 @@ require 'spec_helper'
 describe LinkThumbnailer::Scrapers::Base do
 
   let(:document) { double('document') }
+  let (:response) { double('response', type: ::LinkThumbnailer::Models::Response::Types::WEBPAGE) }
   let(:website)  { LinkThumbnailer::Models::Website.new }
   let(:instance) { described_class.new(document, website) }
+
+  before do
+    website.response = response
+  end
 
   describe '#call' do
 

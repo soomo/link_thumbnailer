@@ -12,7 +12,7 @@ RSpec.configure do |config|
   end
 
   config.before(:all) do
-    stub_request(:get, URL).to_return(status: 200, body: 'body', headers: {})
+    stub_request(:get, URL).to_return(status: 200, body: 'body', headers: {'Content-Type' => ['text/html; charset=utf-8']})
     ::LinkThumbnailer.generate(URI.parse(URL), {})
   end
 

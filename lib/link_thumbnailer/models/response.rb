@@ -21,7 +21,7 @@ module LinkThumbnailer
       end
 
       def content_type
-        (headers['content-type'] || @headers['Content-Type']).first
+        (headers['content-type'] || @headers['Content-Type'])&.first
       end
 
       def type
