@@ -4,13 +4,7 @@ require 'link_thumbnailer/model'
 
 module LinkThumbnailer
   module Models
-    class Response < ::LinkThumbnailer::Model
-
-      module Types
-        WEBPAGE = 'webpage'
-        IMAGE = 'image'
-        OTHER = 'other'
-      end
+    class HttpResponse < ::LinkThumbnailer::Model
 
       attr_reader :code, :headers, :body
 
@@ -24,15 +18,12 @@ module LinkThumbnailer
         (headers['content-type'] || @headers['Content-Type'])&.first
       end
 
-      def type
-        case content_type
-        when /^text\/html/, /^application\/html/
-          Types::WEBPAGE
-        when /^image\//
-          Types::IMAGE
-        else
-          Types::OTHER
-        end
+      def image?
+        content_type.to_s.match?(/^image\//)
+      end
+      
+      def html?
+        content_type.to_s.match?(/^(text|application)\/html/)
       end
 
     end

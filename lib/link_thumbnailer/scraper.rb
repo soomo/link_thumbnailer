@@ -34,13 +34,10 @@ module LinkThumbnailer
       super(config)
     end
 
-    def call response
-      if response.type == ::LinkThumbnailer::Models::Response::Types::WEBPAGE
-        @document = parser.call(source)
-      else
-        @document = nil
-      end
-      website.response = response
+    def call(http_response)
+      @document = nil
+      @document = parser.call(source) if http_response.html?
+      website.http_response = http_response
       config.attributes.each do |name|
         config.scrapers.each do |scraper_prefix|
           scraper_class(scraper_prefix, name).new(document, website).call(name.to_s)

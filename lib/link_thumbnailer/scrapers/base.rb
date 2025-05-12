@@ -32,7 +32,7 @@ module LinkThumbnailer
       end
 
       def applicable?
-        website.response.type == ::LinkThumbnailer::Models::Response::Types::WEBPAGE
+        website.http_response.html?
       end
 
       def value

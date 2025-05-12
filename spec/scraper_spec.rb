@@ -16,8 +16,8 @@ describe LinkThumbnailer::Scraper do
     let(:scraper)                 { double('scraper', call: true) }
     let(:attributes)              { [:bar] }
     let(:scrapers)                { [prefix_1, prefix_2] }
-    let(:response)                { double(header: double(to_hash: {'Content-Type' => ['text/html; charset=utf-8']}), code: 200, body: 'body') }
-    let(:action)                  { instance.call ::LinkThumbnailer::Models::Response.new(response) }
+    let(:http_response)                { double(header: double(to_hash: {'Content-Type' => ['text/html; charset=utf-8']}), code: 200, body: 'body') }
+    let(:action)                  { instance.call ::LinkThumbnailer::Models::HttpResponse.new(http_response) }
     let(:config)                  { double(attributes: attributes, scrapers: scrapers) }
     let(:instance)  { described_class.new(source, URL) }
 

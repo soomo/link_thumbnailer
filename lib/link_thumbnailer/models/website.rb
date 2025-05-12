@@ -6,7 +6,7 @@ module LinkThumbnailer
   module Models
     class Website < ::LinkThumbnailer::Model
 
-      attr_accessor :url, :title, :description, :images, :videos, :favicon, :body, :response
+      attr_accessor :url, :title, :description, :images, :videos, :favicon, :body, :http_response
 
       def initialize
         @images = []
@@ -46,7 +46,7 @@ module LinkThumbnailer
           description:  description,
           images:       images.map(&:as_json),
           videos:       videos.map(&:as_json),
-          response:     {code: response.code, headers: response.headers}
+          http_response:     {code: http_response.code, headers: http_response.headers}
         }
       end
 

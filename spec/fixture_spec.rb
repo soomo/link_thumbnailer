@@ -24,7 +24,7 @@ describe 'Fixture' do
     context 'when valid' do
 
       let(:html) { File.open(File.dirname(__FILE__) + '/fixtures/og_valid_example.html').read }
-
+      
       it { expect(action.favicon).to                eq(favicon) }
       it { expect(action.title).to                  eq(title) }
       it { expect(action.description).to            eq(description) }
